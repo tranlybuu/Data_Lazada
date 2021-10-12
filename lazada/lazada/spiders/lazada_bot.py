@@ -23,9 +23,12 @@ class LazadaBotSpider(scrapy.Spider):
         s_name = response.xpath('//a[@class="pdp-link pdp-link_size_l pdp-link_theme_black seller-name__detail-name"]/text()').get()
         #<div class="seller-info-value rating-positive ">92%</div>
         s_rating = response.xpath('//h1[@class="seller-info-value rating-positive "]/text()').get()
+        #<a title="Quần áo nam" class="breadcrumb_item_anchor" data-spm-anchor-id="a2o4n.pdp_revamp.breadcrumb.2">
+        p_cate = response.xpath('//a[@class="breadcrumb_item_anchor"]/span[1]/text()').get()
 
         item = LazadaItem()
         item["p_name"] = p_name
+        item["p_cate"] = p_cate
         item['p_price'] = p_price
         item["p_rating"] = p_rating
         item["s_name"] = s_name
