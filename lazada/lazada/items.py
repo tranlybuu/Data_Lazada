@@ -12,6 +12,8 @@ class LazadaItem(scrapy.Item):
 
     # Tên sản phẩm
     p_name = scrapy.Field()
+    # Sản phẩm chính hãng
+    p_mall = scrapy.Field()
     # Danh mục sản phẩm
     p_cate = scrapy.Field()
     # Giá sản phẩm

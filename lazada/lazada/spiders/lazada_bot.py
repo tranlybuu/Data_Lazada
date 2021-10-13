@@ -25,6 +25,16 @@ class LazadaBotSpider(scrapy.Spider):
         s_rating = response.xpath('//h1[@class="seller-info-value rating-positive "]/text()').get()
         #<a title="Quần áo nam" class="breadcrumb_item_anchor" data-spm-anchor-id="a2o4n.pdp_revamp.breadcrumb.2">
         p_cate = response.xpath('//a[@class="breadcrumb_item_anchor"]/span[1]/text()').get()
+        #<div class="pdp-mod-product-badge-wrapper"><img src="https://laz-img-cdn.alicdn.com/imgextra/i1/O1CN01JUOYif22N3Uu7JX4R_!!6000000007107-2-tps-162-48.png"
+        p_mall = response.xpath('//div[@class="pdp-mod-product-badge-wrapper"]/img[1]').get()
+        
+
+        # Xử lý với các mặt hàng thuộc Lazada Mall
+        try:
+            if len(p_mall)>0:
+                p_mall = "Mall"
+        except:
+            p_mall = "Non-Mall"
 
         item = LazadaItem()
         item["p_name"] = p_name
@@ -33,5 +43,5 @@ class LazadaBotSpider(scrapy.Spider):
         item["p_rating"] = p_rating
         item["s_name"] = s_name
         item["s_rating"] = s_rating
+        item["p_mall"] = p_mall
         yield item
-        pass
