@@ -20,8 +20,20 @@ class LazadaItem(scrapy.Item):
     p_price = scrapy.Field()
     # Đánh giá sản phẩm
     p_rating = scrapy.Field()
+    # Số lượng đánh giá cho sản phẩm
+    p_number_reviews =  scrapy.Field()
     # Tên nhà bán hàng
     s_name = scrapy.Field()
-    # Đánh giá nhà bán hàng
+    # Tỉ lệ đánh giá tốt cho nhà bán hàng
     s_rating = scrapy.Field()
-    pass
+    # Tỉ lệ nhà bán hàng giao hàng đúng hạn
+    s_ship_ontime = scrapy.Field()
+    # Tỉ lệ nhà bán hàng trả lời tin nhắn
+    s_response_rate = scrapy.Field()
+
+    # Số lượng sao đánh giá cho sản phẩm từ 1->5 sao
+    p_5star_rating = scrapy.Field()
+    p_4star_rating = scrapy.Field()
+    p_3star_rating = scrapy.Field()
+    p_2star_rating = scrapy.Field()
+    p_1star_rating = scrapy.Field()
