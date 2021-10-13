@@ -29,7 +29,7 @@ class LazadaBotSpider(scrapy.Spider):
         for item in list_url:
             yield SeleniumRequest(
                 url = item,
-                wait_time = 3,
+                wait_time = 5,
                 screenshot = True,
                 callback = self.parse,
                 dont_filter = True
@@ -37,6 +37,7 @@ class LazadaBotSpider(scrapy.Spider):
 
 
     def parse(self, response):
+        p_image = response.css('.gallery-preview-panel__image').css("::attr(src)").extract()
         #<h1 class="pdp-mod-product-badge-title" data-spm-anchor-id="a2o4n.pdp_revamp.0.i0.7001594b3uSzoB">COOLMATE Áo thun nam Cotton Compact ngắn tay phiên bản Premium chống nhăn, thoáng mát nhiều màu</h1>
         p_name = response.xpath('//h1[@class="pdp-mod-product-badge-title"]/text()').get()
         #<span class=" pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl" data-spm-anchor-id="a2o4j.pdp_revamp.0.i4.5374460fXeWzZg">Rp108.500</span>
@@ -57,6 +58,8 @@ class LazadaBotSpider(scrapy.Spider):
         s_ship_ontime = response.xpath('//div[@class="info-content"][2]/div[2]/text()').get()
         #<div style="color:" class="seller-info-value " data-spm-anchor-id="a2o4n.pdp_revamp.seller.i1.7a7c4ec6FpEtdG">100%</div>
         s_response_rate = response.xpath('//div[@class="info-content"][3]/div[2]/text()').get()
+
+        
 
         p_5star_rating = response.xpath('//div[@class="detail"]/ul[1]/li[1]/span[2]/text()').get()
         p_4star_rating = response.xpath('//div[@class="detail"]/ul[1]/li[2]/span[2]/text()').get()
@@ -79,6 +82,7 @@ class LazadaBotSpider(scrapy.Spider):
         item["s_name"] = s_name
         item["s_rating"] = s_rating
         item["p_mall"] = p_mall
+        item["p_image"] = p_image
         item["p_number_reviews"] = p_number_reviews
         item["s_ship_ontime"] = s_ship_ontime
         item["s_response_rate"] = s_response_rate
