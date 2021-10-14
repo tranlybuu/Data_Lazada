@@ -1,13 +1,18 @@
 """
-    File để test chứ không còn tác dụng gì khác
+    File này dùng để test chứ không còn chức năng gì khác
 """
-item = "9.350 ₫"
-print(item)
-check = item[-2::]
-try:
-    check = float(check)
-except:
-    item = item[0:-2]
 
-print(check)
-print(type(check))
+"""
+import os
+
+path = os.getcwd() + "\lazada"
+os.chdir(path)
+
+file = open('url.txt', 'r', encoding='UTF-8')
+url_list = file.readlines()
+file.close()
+
+print(len(url_list))
+"""
+
+a = "abc"
