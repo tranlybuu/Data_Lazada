@@ -18,17 +18,27 @@ class LazadaBotSpider(scrapy.Spider):
         data_url_cate = file.readlines()               #  Đọc file url.txt  | 
         file.close()                                   #====================+
 
-        # data_url_cate = ['https://www.lazada.vn/laptop/',]
+        data_url_cate = [
+            'https://www.lazada.vn/dien-thoai-di-dong/',
+            'https://www.lazada.vn/may-tinh-bang/',
+            'https://www.lazada.vn/man-hinh-vi-tinh/',
+            'https://www.lazada.vn/phu-kien-cho-tv/',
+            'https://www.lazada.vn/dam-nu/',
+            'https://www.lazada.vn/jumpsuit-nu/',
+            'https://www.lazada.vn/invisible-unisex-fashion-4/',
+            'https://www.lazada.vn/ba-lo-nu/',
+            'https://www.lazada.vn/tui-deo-cheo-cho-nam/',
+        ]
 
-        number_of_pages = 2         # Số lượng trang sẽ cào ở mỗi danh mục sản phẩm
+        number_of_pages = 1         # Số lượng trang sẽ cào ở mỗi danh mục sản phẩm
         
         url_cate_list = []
         for item in data_url_cate:
-            for count_page in range(1,number_of_pages):
-                url = str(item) + "?page=" + str(count_page)
+            for count_page in range(number_of_pages):
+                url = str(item) + "?page=" + str(count_page+1)
                 url_cate_list.append(url)
 
-        
+
 
         for item in url_cate_list:
             settings= get_project_settings()
@@ -43,7 +53,7 @@ class LazadaBotSpider(scrapy.Spider):
                 link = link.get_attribute('href')
                 yield SeleniumRequest(
                     url = link,
-                    wait_time = 3,
+                    wait_time = 2,
                     screenshot = True,
                     callback = self.parse,
                     dont_filter = True

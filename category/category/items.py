@@ -11,4 +11,5 @@ class CategoryItem(scrapy.Item):
     # name = scrapy.Field()
     
     # Danh mục sản phẩm
-    cate = scrapy.Field()
+    cate1 = scrapy.Field()
+    cate2 = scrapy.Field()
