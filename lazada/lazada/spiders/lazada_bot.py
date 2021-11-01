@@ -10,37 +10,25 @@ class LazadaBotSpider(scrapy.Spider):
     name = 'lazada_bot'
 
     def start_requests(self):
-
+        number_of_pages = 1         # Số lượng trang sẽ cào ở mỗi danh mục sản phẩm
+        number_of_cate = 2          # Số lượng danh mục sản phẩm sẽ cào dữ liệu
+        
         path = "E:\dataLazada\lazada"       # Đường dẫn đến thư mục chứa url.txt
         os.chdir(path)
-
         file = open('url.txt', 'r', encoding='UTF-8')  #====================+
         data_url_cate = file.readlines()               #  Đọc file url.txt  | 
         file.close()                                   #====================+
 
-        data_url_cate = [
-            'https://www.lazada.vn/dien-thoai-di-dong/',
-            'https://www.lazada.vn/may-tinh-bang/',
-            'https://www.lazada.vn/man-hinh-vi-tinh/',
-            'https://www.lazada.vn/phu-kien-cho-tv/',
-            'https://www.lazada.vn/dam-nu/',
-            'https://www.lazada.vn/jumpsuit-nu/',
-            'https://www.lazada.vn/invisible-unisex-fashion-4/',
-            'https://www.lazada.vn/ba-lo-nu/',
-            'https://www.lazada.vn/tui-deo-cheo-cho-nam/',
-        ]
+        # Nếu không test code thì comment dòng này
+        # data_url_cate = ['https://www.lazada.vn/dien-thoai-di-dong/']
 
-        number_of_pages = 1         # Số lượng trang sẽ cào ở mỗi danh mục sản phẩm
-        
         url_cate_list = []
         for item in data_url_cate:
             for count_page in range(number_of_pages):
                 url = str(item) + "?page=" + str(count_page+1)
                 url_cate_list.append(url)
 
-
-
-        for item in url_cate_list:
+        for item in url_cate_list[:number_of_cate]:
             settings= get_project_settings()
             driver_path = 'E:\dataLazada\lazada\chromedriver.exe'
             options= webdriver.ChromeOptions()
@@ -48,16 +36,24 @@ class LazadaBotSpider(scrapy.Spider):
             driver = webdriver.Chrome(driver_path, options=options)
             driver.get(item)
             link_elements = driver.find_elements_by_xpath('//*[@data-qa-locator="product-item"]//a[text()]')
+            
             for link in link_elements:
-                # yield scrapy.Request(link.get_attribute('href'), callback=self.parse)
                 link = link.get_attribute('href')
-                yield SeleniumRequest(
-                    url = link,
-                    wait_time = 2,
-                    screenshot = True,
-                    callback = self.parse,
-                    dont_filter = True
-                )
+                file = open('history.txt', 'a+', encoding='UTF-8')
+                data = file.read()
+                if link not in data:
+                    file.write(str(link) + "\n")
+                    yield SeleniumRequest(
+                        url = link,
+                        wait_time = 10,
+                        screenshot = True,
+                        callback = self.parse,
+                        script='window.scrollTo(0, document.body.scrollHeight);',
+                        dont_filter = True
+                    )
+                else:
+                    continue
+                file.close()
             driver.quit()
 
 
@@ -68,7 +64,7 @@ class LazadaBotSpider(scrapy.Spider):
         #<span class=" pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl" data-spm-anchor-id="a2o4j.pdp_revamp.0.i4.5374460fXeWzZg">Rp108.500</span>
         p_price = response.xpath('//span[@class=" pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl"]/text()').get()
         #<span class="score-average" data-spm-anchor-id="a2o4n.pdp_revamp.ratings_reviews.i1.63e45ac3btUWq5">4.9</span>
-        p_rating = response.xpath('//div[@class="score"]/span[@class="score-average"]/text()').get()
+        p_rating = response.xpath('//span[@class="score-average"]/text()').get()
         #<a class="pdp-link pdp-link_size_l pdp-link_theme_black seller-name__detail-name" target="_self">Teeworld Fashion - Thế Giới Áo Thun</a>
         s_name = response.xpath('//a[@class="pdp-link pdp-link_size_l pdp-link_theme_black seller-name__detail-name"]/text()').get()
         #<div class="seller-info-value rating-positive ">92%</div>
@@ -86,21 +82,54 @@ class LazadaBotSpider(scrapy.Spider):
         #<a class="pdp-link pdp-link_size_s pdp-link_theme_blue pdp-product-brand__brand-link" target="_self" data-spm-anchor-id="a2o4n.pdp_revamp.0.0">HADES</a>
         p_brand = response.xpath('//a[@class="pdp-link pdp-link_size_s pdp-link_theme_blue pdp-product-brand__brand-link"]/text()').get()
 
-        
-
         p_rate5star = response.xpath('//div[@class="detail"]/ul[1]/li[1]/span[@class="percent"]/text()').get()
         p_rate4star = response.xpath('//div[@class="detail"]/ul[1]/li[2]/span[@class="percent"]/text()').get()
         p_rate3star = response.xpath('//div[@class="detail"]/ul[1]/li[3]/span[@class="percent"]/text()').get()
         p_rate2star = response.xpath('//div[@class="detail"]/ul[1]/li[4]/span[@class="percent"]/text()').get()
         p_rate1star = response.xpath('//div[@class="detail"]/ul[1]/li[5]/span[@class="percent"]/text()').get()
 
-        # Xử lý với các mặt hàng thuộc Lazada Mall
+        """ Xử lý với các mặt hàng thuộc Lazada Mall """
         try:
             if len(p_mall)>0:
                 p_mall = "Mall"
         except:
             p_mall = "Non-Mall"
 
+        """ Xử lý giá sản phẩm: Xóa đơn vị tiền tệ và dấu phẩy -> kết quả trả về là số nguyên """
+        try:
+            p_price = str(p_price)
+            if "," in p_price:         #Xóa dấu phẩy trong giá tiền
+                p_price = p_price.replace(",","") 
+            if "₫" in p_price:         #Xóa kí tự ₫ trong giá tiền
+                p_price = p_price.replace("₫","")
+            p_price = int(p_price.strip())
+        except:
+            pass
+
+        """ Xử lý số lượt đánh giá cho sản phẩm: Kết quả trả về chỉ là số nguyên """
+        try:
+            if ("Không có" in p_number_reviews):
+                p_number_reviews = 0
+            else:
+                p_number_reviews = int(p_number_reviews.split(" ")[0])
+        except:
+            pass
+
+        """ Trong quá trình crawl dữ liệu thì có xuất hiện lỗi bị mất dữ liệu về đánh giá """
+        try:
+            """ Xử lý đánh giá trung bình: Chuyển về tỉ lệ % """
+            p_rating = str(int(float(p_rating*20))) + "%"
+
+            """ Xử lý số lượng đánh giá 1->5 sao: Kết quả trả về là số nguyên """
+            p_rate5star = int(float(p_rate5star))
+            p_rate4star = int(float(p_rate4star))
+            p_rate3star = int(float(p_rate3star))
+            p_rate2star = int(float(p_rate2star))
+            p_rate1star = int(float(p_rate1star))
+        except:
+            pass
+
+        ###################
         item = LazadaItem()
         item["p_name"] = p_name
         item["p_cate"] = p_cate
