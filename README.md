@@ -1,12 +1,12 @@
 Thư mục **LAZADA** => Crawl dữ liệu các sản phẩm thuộc tất cả danh mục và thống kê
 
-Thư mục **CATEGORY** => Crawl tất cả các đường dẫn url danh mục sản phẩm
+LAZADA/**output.csv** chứa tất cả các dữ liệu về sản phẩm **chưa qua xử lý**
 
-LAZADA/**output.csv** chứa tất cả các dữ liệu về sản phẩm nhưng chưa qua xử lý
+LAZADA/**LazData.csv** chứa tất cả các dữ liệu về sản phẩm **đã qua xử lý**
 
 LAZADA/**thongke.ipynb** xử lý dữ liệu và thống kê
 
-LAZADA/**url.txt** chứa tất cả đường dẫn url danh mục các sản phẩm thu được từ quá trình crawl **CATEGORY**
+LAZADA/**url.txt** chứa tất cả đường dẫn url danh mục các sản phẩm
 
 Hiện tại crawl được **17** thông tin của sản phẩm:
 

@@ -10,17 +10,17 @@ class LazadaBotSpider(scrapy.Spider):
     name = 'lazada_bot'
 
     def start_requests(self):
-        number_of_pages = 1         # Số lượng trang sẽ cào ở mỗi danh mục sản phẩm
-        number_of_cate = 2          # Số lượng danh mục sản phẩm sẽ cào dữ liệu
+        number_of_pages = 3         # Số lượng trang sẽ cào ở mỗi danh mục sản phẩm
+        number_of_cate = 1          # Số lượng danh mục sản phẩm sẽ cào dữ liệu
         
-        path = "E:\dataLazada\lazada"       # Đường dẫn đến thư mục chứa url.txt
+        path = "E:\dataLazada\lazada"       # Đường dẫn đến thư mục chứa 
         os.chdir(path)
-        file = open('url.txt', 'r', encoding='UTF-8')  #====================+
-        data_url_cate = file.readlines()               #  Đọc file url.txt  | 
-        file.close()                                   #====================+
+        file = open('url_cate_product.txt', 'r', encoding='UTF-8')  
+        data_url_cate = file.readlines()               #  Đọc file  
+        file.close()                                   
 
         # Nếu không test code thì comment dòng này
-        # data_url_cate = ['https://www.lazada.vn/dien-thoai-di-dong/']
+        data_url_cate = ['https://www.lazada.vn/dau-nhot-mo-to/']
 
         url_cate_list = []
         for item in data_url_cate:
@@ -94,40 +94,6 @@ class LazadaBotSpider(scrapy.Spider):
                 p_mall = "Mall"
         except:
             p_mall = "Non-Mall"
-
-        """ Xử lý giá sản phẩm: Xóa đơn vị tiền tệ và dấu phẩy -> kết quả trả về là số nguyên """
-        try:
-            p_price = str(p_price)
-            if "," in p_price:         #Xóa dấu phẩy trong giá tiền
-                p_price = p_price.replace(",","") 
-            if "₫" in p_price:         #Xóa kí tự ₫ trong giá tiền
-                p_price = p_price.replace("₫","")
-            p_price = int(p_price.strip())
-        except:
-            pass
-
-        """ Xử lý số lượt đánh giá cho sản phẩm: Kết quả trả về chỉ là số nguyên """
-        try:
-            if ("Không có" in p_number_reviews):
-                p_number_reviews = 0
-            else:
-                p_number_reviews = int(p_number_reviews.split(" ")[0])
-        except:
-            pass
-
-        """ Trong quá trình crawl dữ liệu thì có xuất hiện lỗi bị mất dữ liệu về đánh giá """
-        try:
-            """ Xử lý đánh giá trung bình: Chuyển về tỉ lệ % """
-            p_rating = str(int(float(p_rating*20))) + "%"
-
-            """ Xử lý số lượng đánh giá 1->5 sao: Kết quả trả về là số nguyên """
-            p_rate5star = int(float(p_rate5star))
-            p_rate4star = int(float(p_rate4star))
-            p_rate3star = int(float(p_rate3star))
-            p_rate2star = int(float(p_rate2star))
-            p_rate1star = int(float(p_rate1star))
-        except:
-            pass
 
         ###################
         item = LazadaItem()

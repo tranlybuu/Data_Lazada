@@ -10,14 +10,19 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import seaborn as sns
 
-a = [1,2,3,4,5,6,8]
-b = a[:3]
-print(b)
 
+check_data = pd.read_csv("https://raw.githubusercontent.com/tranlybuu/Data_Lazada/master/lazada/output.csv")
+name = check_data["p_name"]
+print(name)
 
+# p = "Laptop Dell Inspiron 7400 14.5 inches IPS QHD (Intel / i7-1165G7 / 16GB / 512GB SSD / NVIDIA GeForce MX350  2GB / Finger Print / Win 10 Home SL) l Silver l DDXGD1 l HÀNG CHÍNH HÃNG"
+# a1 = p.index("(")
+# a2 = p.index(")")
+# print(p[a1:(a2+1)])
 
-
-
+# a = [1,2,3,4,5,6,8]
+# b = a[:3]
+# print(b)
 
 # test = "https://www.lazada.vn/banh-xe-lop-xe-may/"
 # path = "E:\dataLazada\lazada"       # Đường dẫn đến thư mục chứa url.txt
