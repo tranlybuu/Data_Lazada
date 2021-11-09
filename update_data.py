@@ -66,7 +66,7 @@ for product in data_all_csv:
 
         """ Xử lý đánh giá trung bình: Chuyển về tỉ lệ % """
         if data[12] != "":
-            data[12] = str((float(data[12])*20)) + "%"
+            data[12] = int(float(data[12])*20//1)
         else:
             data[12] = "##"
 
@@ -87,14 +87,20 @@ for product in data_all_csv:
         """ Xử lý tỉ lệ đánh giá của shop: Mất dữ liệu """
         if len(data[14])==0:
             data[14] = "##"
+        else:
+            data[14] = data[14].replace("%", "")
 
         """ Xử lý tỉ lệ phản hồi của shop: """
         if data[15]=="Không đủ thông tin" or data[15]=="not enough data":
             data[15] = "---"
+        else:
+            data[15] = data[15].replace("%", "")
         
         """ Xử lý tỉ lệ giao hàng của shop: """
         if data[16]=="Không đủ thông tin" or data[16]=="not enough data":
             data[16] = "---"
+        else:
+            data[16] = data[16].replace("%", "")
 
 
         #########################################################
