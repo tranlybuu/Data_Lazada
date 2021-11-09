@@ -1,12 +1,18 @@
 Thư mục **LAZADA** => Crawl dữ liệu các sản phẩm thuộc tất cả danh mục và thống kê
 
-LAZADA/**output.csv** chứa tất cả các dữ liệu về sản phẩm **chưa qua xử lý**
-
-LAZADA/**LazData.csv** chứa tất cả các dữ liệu về sản phẩm **đã qua xử lý**
-
-LAZADA/**thongke.ipynb** xử lý dữ liệu và thống kê
-
 LAZADA/**url.txt** chứa tất cả đường dẫn url danh mục các sản phẩm
+
+LAZADA/**output.csv** các file output là file chứa tất cả các dữ liệu về sản phẩm **chưa qua xử lý**
+
+LAZADA/**history.txt** chứa tất cả đường dẫn url các sản phẩm đã lấy dữ liệu
+
+**LazData.csv** chứa tất cả các dữ liệu về sản phẩm **đã qua xử lý**
+
+**thongke.ipynb** thống kê dữ liệu được lấy từ **LazData.csv**
+
+**update_data.py** đọc dữ liệu các file **output** sau đó xử lý dữ liệu và thêm dữ liệu vào **LazData.csv**
+
+Để crawl dữ liệu: Mở terminal tại **DataLaza/LAZADA** >> scrapy crawl lazada_bot -o <tên_file_csv>.csv
 
 Hiện tại crawl được **17** thông tin của sản phẩm:
 

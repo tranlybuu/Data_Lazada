@@ -11,9 +11,22 @@ import statsmodels.api as sm
 import seaborn as sns
 
 
-check_data = pd.read_csv("https://raw.githubusercontent.com/tranlybuu/Data_Lazada/master/lazada/output.csv")
-name = check_data["p_name"]
-print(name)
+data = []
+path = "E:\dataLazada\lazada"
+os.chdir(path)
+all_folders = os.listdir(path)
+for item in all_folders:
+    if ".csv" in item:
+        bfile = open(item, 'r', encoding='UTF-8')
+        b_header = bfile.readline()
+        product = bfile.readlines()
+        bfile.close()
+        data.append(product)
+print(len(data))
+
+# check_data = pd.read_csv("https://raw.githubusercontent.com/tranlybuu/Data_Lazada/master/lazada/output.csv")
+# name = check_data["p_name"]
+# print(name)
 
 # p = "Laptop Dell Inspiron 7400 14.5 inches IPS QHD (Intel / i7-1165G7 / 16GB / 512GB SSD / NVIDIA GeForce MX350  2GB / Finger Print / Win 10 Home SL) l Silver l DDXGD1 l HÀNG CHÍNH HÃNG"
 # a1 = p.index("(")
