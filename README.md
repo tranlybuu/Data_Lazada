@@ -1,3 +1,7 @@
+<p align="center"><img src="https://user-images.githubusercontent.com/70121634/144363696-a756c0b5-8f62-451b-9e4e-b8a94ee7c12a.png" alt="Lazada" height="100"/></p>
+<h1 align="center">Product data on Lazada</h1>
+<h3 align="center">Kaggle: https://www.kaggle.com/tranlybuu/lazada-product-data</h3>
+
 Thư mục **LAZADA** => Crawl dữ liệu các sản phẩm thuộc tất cả danh mục và thống kê
 
 LAZADA/**url.txt** chứa tất cả đường dẫn url danh mục các sản phẩm
