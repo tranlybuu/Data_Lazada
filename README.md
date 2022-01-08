@@ -1,4 +1,4 @@
-<p align="center"><img src="https://user-images.githubusercontent.com/70121634/144363696-a756c0b5-8f62-451b-9e4e-b8a94ee7c12a.png" alt="Lazada" height="100"/></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/70121634/148651256-2c8d908d-6fec-487f-ac02-977e98ed89f7.png" alt="Lazada" height="200"/></p>
 <h1 align="center">Product data on Lazada</h1>
 <h3 align="center">Kaggle: https://www.kaggle.com/tranlybuu/lazada-product-data</h3>
 
@@ -6,17 +6,21 @@ Thư mục **LAZADA** => Crawl dữ liệu các sản phẩm thuộc tất cả 
 
 LAZADA/**url.txt** chứa tất cả đường dẫn url danh mục các sản phẩm
 
-LAZADA/**output.csv** các file output là file chứa tất cả các dữ liệu về sản phẩm **chưa qua xử lý**
-
 LAZADA/**history.txt** chứa tất cả đường dẫn url các sản phẩm đã lấy dữ liệu
 
-**LazData.csv** chứa tất cả các dữ liệu về sản phẩm **đã qua xử lý**
+LAZADA/**output.csv** các file output là file chứa tất cả các dữ liệu về sản phẩm **chưa qua xử lý**
 
-**thongke.ipynb** thống kê dữ liệu được lấy từ **LazData.csv**
+**LazadaProductData.json** chứa tất cả các dữ liệu về sản phẩm **chưa qua xử lý** ở dạng JSON
+
+**LazData.csv** chứa tất cả các dữ liệu về sản phẩm **đã qua xử lý** ở dạng CSV
 
 **update_data.py** đọc dữ liệu các file **output** sau đó xử lý dữ liệu và thêm dữ liệu vào **LazData.csv**
 
-Để crawl dữ liệu: Mở terminal tại **DataLaza/LAZADA** >> scrapy crawl lazada_bot -o <tên_file_csv>.csv
+**ThongKePython.ipynb** thống kê dữ liệu được lấy từ **LazData.csv** bằng Python
+
+**ThongKeR.ipynb** thống kê dữ liệu được lấy từ **LazData.csv** bằng R
+
+**Để crawl dữ liệu**: Để đường dẫn danh mục sản phẩm bạn muốn crawl vào **LAZADA/url.txt** >> Mở terminal tại **DataLaza/LAZADA** >> **scrapy crawl lazada_bot -o <tên_file_csv>.csv**
 
 Hiện tại crawl được **17** thông tin của sản phẩm:
 
