@@ -8,7 +8,7 @@ View(data)
 names(data)
 str(data)
 #----------------------------------------------------------------
-# T�nh mode
+# Tính mode
 mode <- function (x, method = "mode", na.rm = FALSE)
 {
   x <- unlist(x)
@@ -35,7 +35,7 @@ mode <- function (x, method = "mode", na.rm = FALSE)
   {return(u[which(frequencies==max(frequencies), arr.ind = FALSE, useNames = FALSE)])}
   return()
 }
-# M� t??? d??? li???u
+# Mô tả dữ liệu
 describe <- function(x)
 {
   av <- mean(x)
@@ -47,32 +47,32 @@ describe <- function(x)
   c(MEAN=av, MEDIAN=tv, SD=sd, STD=se, MIN=min, MAX=max)
 } 
 #----------------------------------------------------------------
-# Thuong hi???u
+# Thương hiệu
 mode(data$p_brand)
 describe(data$p_brand)
-qplot(data$p_brand,xlab = "Thuong hi???u", ylab = "S??? lu???ng", main = "Bi???u d??? s??? lu???ng s???n ph???m c???a m???i thuong hi???u")
+qplot(data$p_brand,xlab = "Thương hiệu", ylab = "Số lượng", main = "Biểu đồ số lượng sản phẩm của mỗi thương hiệu")
 #---------------------------------------------------------------
-# Danh m???c s???n ph???m
+# Danh mục sản phẩm
 mode(data$p_cate)
 describe(data$p_cate)
-qplot(data$p_cate, xlab = 'Danh m???c', ylab = 'S??? lu???ng s???n ph???m', main = 'Bi???u d??? danh m???c s???n ph???m')
+qplot(data$p_cate, xlab = 'Danh mục', ylab = 'Số lượng sản phẩm', main = 'Biểu đồ danh mục sản phẩm')
 #----------------------------------------------------------------
-# S???n ph???m ch�nh h�ng ho???c kh�ng ch�nh h�ng
+# Sản phẩm chính hãng hoặc không chính hãng
 mode(data$p_mall)
 describe(data$p_mall)
-qplot(data$p_mall, xlab = 'S???n ph???m ch�nh h�ng v� kh�ng ch�nh h�ng', ylab = 'S??? lu???ng', main = 'Bi???u d??? s??? lu???ng LazMall v� NonMall')
+qplot(data$p_mall, xlab = 'Sản phẩm chính hãng và không chính hãng', ylab = 'Số lượng', main = 'Biểu đồ số lượng LazMall và NonMall')
 #----------------------------------------------------------------
-# T???ng s??? lu???t d�nh gi� cho m???i s???n ph???m
+# Tổng số lượt đánh giá cho mỗi sản phẩm
 mode(data$p_number_reviews)
 describe(data$p_number_reviews)
-hist(data$p_number_reviews,col = 'green',breaks=40,xlab = "S??? d�nh gi� cho m???i s???n ph???m", ylab = "S??? lu???ng", main = "Bi???u d??? th??? hi???n s??? d�nh gi� cho m???i s???n ph???m")
+hist(data$p_number_reviews,col = 'green',breaks=40,xlab = "Số đánh giá cho mỗi sản phẩm", ylab = "Số lượng", main = "Biểu đồ thể hiện số đánh giá cho mỗi sản phẩm")
 #----------------------------------------------------------------
-# Gi� c???a s???n ph???m
+# Giá của sản phẩm
 mode(data$p_price)
 describe(data$p_price)
-hist(data$p_price,col = 'pink',breaks=50,xlab = "Kho???ng gi� s???n ph???m", ylab = "S??? lu???ng s???n ph???m", main = "Bi???u d??? th??? hi???n c�c kho???ng gi� s???n ph???m")
+hist(data$p_price,col = 'pink',breaks=50,xlab = "Khoảng giá sản phẩm", ylab = "Số lượng sản phẩm", main = "Biểu đồ thể hiện các khoảng giá sản phẩm")
 #----------------------------------------------------------------
-# T???ng s??? lu???t d�nh gi� 1->5 sao cho m???i s???n ph???m
+# Tổng số lượt đánh giá 1->5 sao cho mỗi sản phẩm
 mode(data$p_rate1star)
 describe(data$p_rate1star)
 mode(data$p_rate2star)
@@ -93,60 +93,60 @@ rate_number = c(rate1star,rate2star,rate3star,rate4star,rate5star)
 fig <- plot_ly(type='pie', labels=rate_name, values=rate_number, 
                textinfo='label+percent',
                insidetextorientation='radial')
-fig <- fig %>% layout(title = "Ph???n tram d�nh gi� t??? 1->5 sao",uniformtext=list(minsize=8, mode='hide'))
+fig <- fig %>% layout(title = "Phần trăm đánh giá từ 1->5 sao",uniformtext=list(minsize=8, mode='hide'))
 fig
 #----------------------------------------------------------------
-# D�nh gi� trung b�nh cho m???i s???n ph???m (T??? 0% -> 100%)
+# Đánh giá trung bình cho mỗi sản phẩm (Từ 0% -> 100%)
 mode(data$p_rating)
 describe(data$p_rating)
-hist(data$p_rating,col = 'red',breaks=70,xlab = "D�nh gi� trung b�nh c???a s???n ph???m (%)", ylab = "S??? lu???ng d�nh gi�", main = "Bi???u d??? th??? hi???n t???ng quan d�nh gi� s???n ph???m tr�n Lazada")
+hist(data$p_rating,col = 'red',breaks=70,xlab = "Đánh giá trung bình của sản phẩm (%)", ylab = "Số lượng đánh giá", main = "Biểu đồ thể hiện tổng quan đánh giá sản phẩm trên Lazada")
 #----------------------------------------------------------------
-# T�n shop b�n h�ng
+# Tên shop bán hàng
 mode(data$s_name)
 describe(data$s_name)
 #----------------------------------------------------------------
-# D�nh gi� trung b�nh cho shop (T??? 0% -> 100%)
+# Đánh giá trung bình cho shop (Từ 0% -> 100%)
 mode(data$s_rating)
 describe(data$s_rating)
-hist(data$s_rating,col = 'green',breaks=10,xlab = "D�nh gi� trung b�nh c???a c???a h�ng (%)", ylab = "S??? lu???ng d�nh gi�", main = "Bi???u d??? th??? hi???n t???ng quan d�nh gi� c???a h�ng tr�n Lazada")
+hist(data$s_rating,col = 'green',breaks=10,xlab = "Đánh giá trung bình của cửa hàng (%)", ylab = "Số lượng đánh giá", main = "Biểu đồ thể hiện tổng quan đánh giá cửa hàng trên Lazada")
 #----------------------------------------------------------------
-# D�nh gi� trung b�nh ph???n h???i c???a shop cho kh�ch h�ng (T??? 0% -> 100%)
+# Đánh giá trung bình phản hồi của shop cho khách hàng (Từ 0% -> 100%)
 mode(data$s_response_rate)
 describe(data$s_response_rate)
 s_response_rate <- as.numeric(data$s_response_rate)
-hist(s_response_rate,col = 'brown',breaks=15,xlab = "D�nh gi� trung b�nh t??? l??? ph???n h???i c???a c???a h�ng (%)", ylab = "S??? lu???ng d�nh gi�", main = "Bi???u d??? th??? hi???n t???ng quan d�nh gi� t??? l??? ph???n h???i c???a h�ng")
+hist(s_response_rate,col = 'brown',breaks=15,xlab = "Đánh giá trung bình tỉ lệ phản hồi của cửa hàng (%)", ylab = "Số lượng đánh giá", main = "Biểu đồ thể hiện tổng quan đánh giá tỉ lệ phản hồi cửa hàng")
 #---------------------------------------------------------------
-# D�nh gi� trung b�nh th???i gian giao h�ng c???a shop (T??? 0% -> 100%)
+# Đánh giá trung bình thời gian giao hàng của shop (Từ 0% -> 100%)
 mode(data$s_ship_ontime)
 describe(data$s_ship_ontime)
 s_ship_ontime <- as.numeric(data$s_ship_ontime)
-hist(s_ship_ontime,col = 'gray',breaks=15,xlab = "D�nh gi� trung b�nh t??? l??? ph???n h???i c???a c???a h�ng (%)", ylab = "S??? lu???ng d�nh gi�", main = "Bi???u d??? th??? hi???n t???ng quan d�nh gi� t??? l??? ph???n h???i c???a h�ng")
+hist(s_ship_ontime,col = 'gray',breaks=15,xlab = "Đánh giá trung bình tỉ lệ phản hồi của cửa hàng (%)", ylab = "Số lượng đánh giá", main = "Biểu đồ thể hiện tổng quan đánh giá tỉ lệ phản hồi cửa hàng")
 #----------------------------------------------------------------
-# M???i quan h??? c???a d�nh gi� trung b�nh s???n ph???m v� d�nh gi� trung b�nh c???a h�ng
+# Mối quan hệ của đánh giá trung bình sản phẩm và đánh giá trung bình cửa hàng
 ggplot(data,aes(x=s_rating,y=p_rating)) + geom_point() + geom_smooth(se=TRUE) +
-  labs(title='M???i quan h??? c???a d�nh gi� trung b�nh s???n ph???m v� d�nh gi� trung b�nh c???a h�ng',x='D�nh gi� trung b�nh c???a h�ng (%)',y='D�nh gi� trung b�nh s???n ph???m (%)')
+  labs(title='Mối quan hệ của đánh giá trung bình sản phẩm và đánh giá trung bình cửa hàng',x='Đánh giá trung bình cửa hàng (%)',y='Đánh giá trung bình sản phẩm (%)')
 #----------------------------------------------------------------
-# M???i quan h??? gi???a gi� ti???n v� s??? lu???ng mua h�ng
+# Mối quan hệ giữa giá tiền và số lượng mua hàng
 fig <- plot_ly(x = data$p_number_reviews, y = data$p_price,
                marker = list(size = 10,
                              color = 'rgba(255, 182, 193, .9)',
                              line = list(color = 'rgba(152, 0, 0, .8)',
                                          width = 2)))
-fig <- fig %>% layout(title = 'M???i quan h??? gi???a gi� ti???n v� s??? lu???ng mua h�ng',
+fig <- fig %>% layout(title = 'Mối quan hệ giữa giá tiền và số lượng mua hàng',
                       yaxis = list(zeroline = FALSE),
                       xaxis = list(zeroline = FALSE))
 fig
 #----------------------------------------------------------------
-# ???nh hu???ng c???a vi???c ph???n h???i kh�ch h�ng v� th???i gian gian h�ng d???n d�nh gi� s???n ph???m c???a kh�ch h�ng
+# Ảnh hưởng của việc phản hồi khách hàng và thời gian gian hàng đến đánh giá sản phẩm của khách hàng
 fig <- plot_ly(x=data$s_ship_ontime, y=data$s_response_rate, z=data$s_rating, type = "contour",
                colorscale = 'Jet',
                autocontour = F
-)%>% layout(title = '???nh hu???ng c???a vi???c ph???n h???i kh�ch h�ng v� th???i gian gian h�ng d???n d�nh gi� s???n ph???m c???a kh�ch h�ng',
+)%>% layout(title = 'Ảnh hưởng của việc phản hồi khách hàng và thời gian gian hàng đến đánh giá sản phẩm của khách hàng',
             yaxis = list(zeroline = FALSE),
             xaxis = list(zeroline = FALSE))
 fig
 #----------------------------------------------------------------
-# ???nh hu???ng c???a s???n ph???m ch�nh h�ng v� kh�ng ch�nh h�ng d???n ch???t lu???ng s???n ph???m
+# Ảnh hưởng của sản phẩm chính hãng và không chính hãng đến chất lượng sản phẩm
 fig <- plot_ly(labels = data$p_mall, values = data$p_rate1star, type = 'pie',
                textposition = 'inside',
                textinfo = 'label+percent',
@@ -154,7 +154,7 @@ fig <- plot_ly(labels = data$p_mall, values = data$p_rate1star, type = 'pie',
                hoverinfo = 'text',
                marker = list(colors = colors,
                              line = list(color = '#FFFFFF', width = 1)),
-               showlegend = FALSE)%>% layout(title = 'Ph???n tram d�nh gi� 1 sao cho kho???ng 2000 s???n ph???m ch�nh h�ng v� kh�ng ch�nh h�ng',
+               showlegend = FALSE)%>% layout(title = 'Phần trăm đánh giá 1 sao cho khoảng 2000 sản phẩm chính hãng và không chính hãng',
                                              xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                                              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 fig
@@ -165,12 +165,12 @@ fig <- plot_ly(labels = data$p_mall, values = data$p_rate5star, type = 'pie',
                hoverinfo = 'text',
                marker = list(colors = colors,
                              line = list(color = '#FFFFFF', width = 1)),
-               showlegend = FALSE)%>% layout(title = 'Ph???n tram d�nh gi� 5 sao cho kho???ng 2000 s???n ph???m ch�nh h�ng v� kh�ng ch�nh h�ng',
+               showlegend = FALSE)%>% layout(title = 'Phần trăm đánh giá 5 sao cho khoảng 2000 sản phẩm chính hãng và không chính hãng',
                                              xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                                              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 fig
 #----------------------------------------------------------------
-# Ph???n tram s???n ph???m kh�ch h�ng quan t�m
+# Phẩn trăm sản phẩm khách hàng quan tâm
 fig <- plot_ly(labels = data$p_cate, values = data$p_number_reviews, type = 'pie',
                textposition = 'inside',
                textinfo = 'label+percent',
@@ -178,7 +178,8 @@ fig <- plot_ly(labels = data$p_cate, values = data$p_number_reviews, type = 'pie
                hoverinfo = 'text',
                marker = list(colors = colors,
                              line = list(color = '#FFFFFF', width = 1)),
-               showlegend = FALSE)%>% layout(title = 'Ph???n tram danh m???c s???n ph???m du???c kh�ch h�ng ti�u th???',
+               showlegend = FALSE)%>% layout(title = 'Phần trăm danh mục sản phẩm được khách hàng tiêu thụ',
                                              xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                                              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 fig
+
