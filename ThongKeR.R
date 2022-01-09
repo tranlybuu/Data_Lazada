@@ -182,4 +182,3 @@ fig <- plot_ly(labels = data$p_cate, values = data$p_number_reviews, type = 'pie
                                              xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                                              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 fig
-
